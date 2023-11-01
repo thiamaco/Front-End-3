@@ -43,7 +43,6 @@ app.get('/add-dados', async (req, res) => {
     res.status(500).json({ error: 'Ocorreu um erro na requisição.' });
   }
 });
-//requisocoes post//
 app.post('/search', async (req, res) => {
   const data = req.body;
   const result = [];
@@ -57,6 +56,7 @@ app.post('/search', async (req, res) => {
   if (data != null) {
     res.json({ result });
   } else {
+    
     res.status(500).json({ error: 'Ocorreu um erro na requisição.' });
   }
 })
@@ -64,7 +64,7 @@ app.post('/search', async (req, res) => {
 app.post('/lista-contatos', async (req, res) => {
   const data = req.body;
   const lista = [];
-  dados = data;
+  dados = data.objeto;
   for (const obj of data.objeto) {
     const contatos = {};
     contatos.foto = obj.picture.large;
