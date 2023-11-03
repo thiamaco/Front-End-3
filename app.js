@@ -2,7 +2,11 @@ const express = require('express');
 const axios = require('axios');
 const app = express();
 
-app.use(express.json());
+
+app.engine('handlebars', engine({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
+app.set("views", "./views");
+app.use(express.json()); 
 
 var dados = [];
 // rotas dos arquivos e do .json da pagina//
@@ -31,7 +35,7 @@ app.get('/inicializacao', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Ocorreu um erro na requisição.' });
   }
-});
+}); b
 
 app.get('/add-dados', async (req, res) => {
   try {
