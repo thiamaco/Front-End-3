@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
-
+const {engine} = require('express-handlebars');
 
 app.engine('handlebars', engine({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
@@ -35,7 +35,7 @@ app.get('/inicializacao', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Ocorreu um erro na requisição.' });
   }
-}); b
+});
 
 app.get('/add-dados', async (req, res) => {
   try {
