@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thiamaco RH</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/7604/7604036.png">
+  <script>
+    (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })({
+      key: "AIzaSyDpnvRVNX-JC6yLKwz475kdp_f_fkVFonU",
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <ul class="menu-header">
+      <li class="lista"><a class="add-user" href="javascript:void(0)">Adicionar Usuarios</a></li>
+      <li class="lista"><a class='lista-aniver' href="javascript:void(0)">Lista de Aniversarios</a></li>
+      <li class="lista"><a class="street" href="javascript:void(0)">Localização</a></li>
+      <li class="lista"><a class='lista-contatos' href="javascript:void(0);">Contato</a></li>
+      <li class="lista"><a class="tabela_home" href="#">Home</a></li>
+    </ul>
+  </header>
+  <div class="grid-container">
+    <aside class="left"></aside>
+    <main class="center">
+      
+      <div id="message-add">
+        <span>Um novo Usuario foi adicionado!</span>
+      </div>
+      <div id="map">
+
+      </div>
+      <div id='procurar'>
+        <label for="">Escolha a pessoa a ser pesquisada:</label>
+        <select name="pontos" id="pontos">
+        </select>
+      </div>
+      <div class="icon" style="text-align: end; display: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
+          <path d="M370.72 133.28C339.458 104.008 298.888 87.962 255.848 88c-77.458.068-144.328 53.178-162.791
+           126.85-1.344 5.363-6.122 9.15-11.651 9.15H24.103c-7.498 0-13.194-6.807-11.807-14.176C33.933 94.924 
+           134.813 8 256 8c66.448 0 126.791 26.136 171.315 68.685L463.03 40.97C478.149 25.851 504 36.559 504 
+           57.941V192c0 13.255-10.745 24-24 24H345.941c-21.382 0-32.09-25.851-16.971-40.971l41.75-41.749zM32 
+           296h134.059c21.382 0 32.09 25.851 16.971 40.971l-41.75 41.75c31.262 29.273 71.835 45.319 114.876 
+           45.28 77.418-.07 144.315-53.144 162.787-126.849 1.344-5.363 6.122-9.15 11.651-9.15h57.304c7.498 0 
+           13.194 6.807 11.807 14.176C478.067 417.076 377.187 504 256 504c-66.448 0-126.791-26.136-171.315-68.685L48.97 
+           471.03C33.851 486.149 8 475.441 8 454.059V320c0-13.255 10.745-24 24-24z" />
+        </svg>
+        <span>Atualizar</span>
+      </div>
+      <div id="contatos">
+      </div>
+      <div class="search">
+        <h3 style="text-align: center;">Tabela de Dados</h3>
+        <div>
+          <input type="text" name="search" class="pesquisar" placeholder="search...">
+          <input type="submit" id="btnsearch" value="Pesquisar">
+        </div>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="name">Nome</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>City</th>
+            <th>State</th>
+            <th>E-mail</th>
+            <th>CPF</th>
+            <th class="phone">Phone</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+        </tbody>
+      </table>
+      <table class="table-aniver">
+        <thead>
+          <tr>
+            <th class="name">Nome</th>
+            <th>Dia</th>
+            <th>Mês</th>
+            <th>Ano</th>
+            <th>Dias Faltantes</th>
+          </tr>
+        </thead>
+        <tbody id="body-aniver">
+        </tbody>
+      </table>
+    </main>
+    <aside class="right"></aside>
+  </div>
+  </div>
+  <footer>
+    <p>&copy; 2023 Thiamaco. Todos os Direitos Reservados.</p>
+</footer>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="script.js"></script>
+
+</body>
+
+</html>
