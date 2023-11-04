@@ -1,28 +1,82 @@
 const express = require('express');
 const axios = require('axios');
-const app = express();
-const {engine} = require('express-handlebars');
+const bodyParser = require('body-parser');
+const { engine } = require('express-handlebars');
 
+//app
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+//template
 app.engine('handlebars', engine({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
-app.set("views", "./views");
-app.use(express.json()); 
+app.set("views", "./views");
+app.use(express.json());
 
-var dados = [];
+var dados2 = [];
 
-app.get('/', async(req, res) => {
+// rotas dos arquivos//
+app.get('/style.css', (req, res) => {
+  res.sendFile(__dirname + '/style.css');
+})
+app.get('/script.js', (req, res) => {
+  res.sendFile(__dirname + '/script.js');
+})
+
+app.get('/', async (req, res) => {
+  fetch('http://localhost:3000/results')
+    .then(response => response.json())
+    .then(data => {
+      res.render('table_home', { dados: data });
+      dados2 = data;
+    })
+    .catch(error => {
+      console.error('Erro ao buscar os dados:', error);
+    })
+})
+
+app.get('/add-dados', async (req, res) => {
   try {
-    const response = await axios.get('https://randomuser.me/api/?results=30&nat=BR');
+    const response = await axios.get('https://randomuser.me/api/?results=1&nat=BR');
     const data = response.data;
-    dados = data.results;
-    res.render('table_home', data);
+    fetch('http://localhost:3000/results', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(res.redirect('/'))
+      .catch(error => {
+        console.error('Erro ao buscar os dados:', error);
+      });
   } catch (error) {
     res.status(500).json({ error: 'Ocorreu um erro na requisição.' });
   }
+})
+
+app.get('/contatos', async (req, res) => {
+  const lista = [];
+  fetch('http://localhost:3000/results')
+    .then(response => response.json())
+    .then(data => {
+      res.render('contatos', { dados: data });
+    })
+    .catch(error => {
+      console.error('Erro ao buscar os dados:', error);
+    })
 });
+
+app.get('/map', (req,res)=>{
+  res.render('map',{dados: dados2});
+})
+
 app.get('/dados', async (req, res) => {
-  res.json(dados);
+  res.json(dados2);
+  console.log(dados2)
 });
+/*
+
 app.get('/home',(req,res)=>{
 
   res.redirect('/')
@@ -31,22 +85,6 @@ app.get('/home',(req,res)=>{
 app.get('/map', (req,res)=>{
   res.render('map', dados);
 })
-
-// rotas dos arquivos e do .json da pagina//
-
-
-app.get('/style.css', (req, res) => {
-  res.sendFile(__dirname + '/style.css');
-})
-
-app.get('/script.js', (req, res) => {
-  res.sendFile(__dirname + '/script.js');
-})
-
-app.get('/contexto', (req, res) => {
-  res.send(dados);
-});
-// requisicoes get //
 
 
 
@@ -80,24 +118,7 @@ app.post('/search', async (req, res) => {
   }
 })
 
-app.get('/contatos', async (req, res) => {
-  //const data = req.body;
-  const lista = [];
-  for (const obj of dados) {
-    const contatos = {};
-    
-    contatos.foto = obj.picture.large;
-    contatos.nome = obj.name.first + " " + obj.name.last;
-    contatos.phone = 'Phone: ' + obj.phone;
-    contatos.city = 'Cidade: ' + obj.location.city +', '+obj.location.state;
-    lista.push(contatos);
-  }
-  if (lista != null) {
-    res.render('contatos', {lista});
-  } else {
-    res.status(500).json({ error: 'Ocorreu um erro na requisição.' });
-  }
-});
+
 
 app.get('/aniversarios', async (req, res) => {
   const aniversarios = [];
@@ -143,25 +164,9 @@ app.post('/atualizar', async (req, res) => {
     res.status(500).json({ error: 'Erro ao atualizar.' });
   }
 });
-
-app.get('/teste', async (req, res) => {
-  try {
-    // Realize uma solicitação assíncrona para obter dados de algum endpoint
-    //const response = await axios.get('https://api.example.com/data');
-
-    // Extraia os dados da resposta
-    //const data = response.data;
-    //const dados = 'ola'
-    // Renderize o template Handlebars com os dados
-    res.json( 'table_home',dados);
-  } catch (error) {
-    console.error('Erro na solicitação:', error);
-    res.status(500).send('Erro na solicitação');
-  }
-});
-
+*/
 //server//
-const port = 3000;
+const port = 2000;
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });

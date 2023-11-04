@@ -13,11 +13,18 @@
         <span>Um novo Usuario foi adicionado!</span>
       </div>
       <div id="map">
-
       </div>
       <div id='procurar' style="">
         <label for="">Escolha a pessoa a ser pesquisada:</label>
         <select name="pontos" id="pontos">
+          {{#each dados}}
+           <option value="{{@index}}">
+          {{#each results}}
+          
+         {{name.first}} {{name.last}}</option>
+          
+          {{/each}}
+          {{/each}}
         </select>
       </div>
 
@@ -45,10 +52,17 @@
       ajustarcoord(dados)
 
     });
+
+    $(document).ready(function() {
+  if (window.location.href.indexOf("map") !== -1) {
+    ajustarcoord(dados)    
+  }
+});
+
     //funcao para ajustar as coordenadas de acordo o nome da rua e a cidade da pessoa//
     function ajustarcoord(dados) {
       for (var i = 0; i < dados.length; i++) {
-        var loc = dados[i].location.street.name + ', ' + dados[i].location.city
+        var loc = dados[i].results[0].location.street.name + ', ' + dados[i].results[0].location.city
         var geocoder = new google.maps.Geocoder();
         geocoder.geocode({ 'address': loc }, function (results, status) {
           if (status === google.maps.GeocoderStatus.OK) {
@@ -65,44 +79,33 @@
       setTimeout(() => {
         for (var i = 0; i < dados.length; i++) {
           if (CoordAtualizados[i] != 'erro')
-            dados[i].location.coordinates = CoordAtualizados[i];
+            dados[i].results[0].location.coordinates = CoordAtualizados[i];
         }
         if (i == dados.length) {
           rendermarcadores(dados);
-          options(dados);
-          atualizar();
+          //atualizar();
         }
       }, 2000)
     }
     //renderiza os marcadores no mapa
-    function rendermarcadores(objeto) {
-      for (var i = 0; i < objeto.length; i++) {
+    function rendermarcadores(dados) {
+      for (var i = 0; i < dados.length; i++) {
         new google.maps.Marker({
-          position: objeto[i].location.coordinates,
+          position: dados[i].results[0].location.coordinates,
           map: map,
-          title: objeto[i].name.first + ' ' + objeto[i].name.last,
+          title: dados[i].results[0].name.first + ' ' + dados[i].results[0].name.last,
         });
       }
     }
     //funcao para dar o foco da pessoa selecionado no select#pontos
-    function focusOnPoint(objeto, i) {
-      const newLatLng = new google.maps.LatLng(objeto[i].location.coordinates.lat, objeto[i].location.coordinates.lng);
+    
+    
+    //evento quando há alguma alteraçao no select para alterar o foco no mapa
+    $("#pontos").on("change", function () {
+      var opcaoSelecionada = $(this).find("option:selected").val();
+       const newLatLng = new google.maps.LatLng(dados[opcaoSelecionada].results[0].location.coordinates.lat, dados[opcaoSelecionada].results[0].location.coordinates.lng);
       map.panTo(newLatLng);
       map.setZoom(12);
-    }
-    //renderiza as opcoes a ser selecionada para o usuario//
-    function options(objeto) {
-      for (var i = 0; i < objeto.length; i++) {
-        const option = document.createElement('option');
-        option.innerText = objeto[i].name.first + ' ' + objeto[i].name.last
-        option.value = i;
-        pontos.appendChild(option);
-      }
-    }
-    //evento quando há alguma alteraçao no select para alterar o foco no mapa
-    $("#procurar").on("change", function () {
-      var opcaoSelecionada = $(this).find("option:selected").val();
-      focusOnPoint(dados, opcaoSelecionada);
     });
   </script>
 </body>

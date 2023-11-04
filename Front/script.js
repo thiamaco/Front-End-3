@@ -26,21 +26,14 @@ fetch('/dados')
 //evento para adicionar uma nova pessoa ao sistema, fazendo uma requisiçao add-dados//
 $('.add-user').on('click', function () {
   fetch('/add-dados')
-    .then(response => response.json())
     .then(data => {
-      data.dob.date = new Date(data.dob.date);
-      var aniv =  new Date(2023,data.dob.date.getMonth(),data.dob.date.getDate())
-      var dias = Math.floor((aniv-DiaAtual) / (1000 * 60 * 60 * 24))
-        if(dias>=0){
-          data.dob.aniversario=dias+1;
-        }else{
-        data.dob.aniversario=(dias+365)+1;
-        }
-      dados.push(data)
       $("#message-add").fadeIn();
       setTimeout(function () {
         $("#message-add").fadeOut();
       }, 2000);
+    })
+    .then(data =>{
+      location.reload();
     })
     .catch(error => console.error('Erro:', error));
 })
