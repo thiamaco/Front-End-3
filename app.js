@@ -143,9 +143,26 @@ app.post('/atualizar', async (req, res) => {
   }
 });
 
+app.get('/teste', async (req, res) => {
+  try {
+    // Realize uma solicitação assíncrona para obter dados de algum endpoint
+    //const response = await axios.get('https://api.example.com/data');
+
+    // Extraia os dados da resposta
+    //const data = response.data;
+    //const dados = 'ola'
+    // Renderize o template Handlebars com os dados
+    res.json( 'table_home',dados);
+  } catch (error) {
+    console.error('Erro na solicitação:', error);
+    res.status(500).send('Erro na solicitação');
+  }
+});
 
 //server//
 const port = 3000;
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
+
+
