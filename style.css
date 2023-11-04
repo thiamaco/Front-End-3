@@ -424,7 +424,7 @@ input#btnsearch {
 }
 #map{
   height: 600px;
-  display: none;
+ 
 }
 
 #procurar{
@@ -464,7 +464,7 @@ display: none;
 
 .table-aniver{
   margin-top: 60px;
-  display: none;
+  
 }
 
 .dados:hover {

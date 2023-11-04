@@ -40,7 +40,17 @@
             <th>Dias Faltantes</th>
           </tr>
         </thead>
-        <tbody id="body-aniver">
+        <tbody id="">
+             {{#each aniversarios}}
+            <tr>
+                <td>{{nome}}</td>
+                <td>{{dia}}</td>
+                <td>{{mes}}</td>
+                <td>{{ano}}</td>
+                <td>{{aniversario}}</td>
+                
+            </tr>
+             {{/each}}
         </tbody>
       </table>
       
