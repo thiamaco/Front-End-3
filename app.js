@@ -63,16 +63,17 @@ app.get('/add-dados', async (req, res) => {
 //requisocoes post//
 app.post('/search', async (req, res) => {
   const data = req.body;
-  const result = [];
+  console.log(data)
+  const results = [];
   for (const obj of data.objeto) {
     if (obj.gender.includes(data.valor) || obj.location.city.includes(data.valor) || obj.id.value.includes(data.valor)) {
-      result.push(obj);
+      results.push(obj);
     } else if (data.valor == '') {
-      result.push(obj);
+      results.push(obj);
     }
   }
   if (data != null) {
-    res.json({ result });
+    res.render('table_home', data);
   } else {
     res.status(500).json({ error: 'Ocorreu um erro na requisição.' });
   }

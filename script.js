@@ -46,17 +46,14 @@ $('.add-user').on('click', function () {
 })
 //evento para filtrar a tabela home, variando por idade, city, ou cpf da pessoa//
 $("#btnsearch").on('click', function () {
-  tableBody.innerHTML = '';
   var value = $('.pesquisar').val();
     $.ajax({
       type: 'POST',
       url: '/search',
       contentType: 'application/json',
       data: JSON.stringify({ objeto: dados, valor: value }),
-      success: function (data) {
-        for (var i = 0; i < data.result.length; i++) {
-          render(data.result[i]);
-        }
+      success: function (datas) {
+        console.log(datas);
       },
       error: function (xhr, status, error) {
         console.error('Falha na solicitação:', error);
