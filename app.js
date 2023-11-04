@@ -10,7 +10,7 @@ app.use(express.json());
 
 var dados = [];
 
-app.get('/home', async(req, res) => {
+app.get('/', async(req, res) => {
   try {
     const response = await axios.get('https://randomuser.me/api/?results=30&nat=BR');
     const data = response.data;
@@ -23,15 +23,17 @@ app.get('/home', async(req, res) => {
 app.get('/dados', async (req, res) => {
   res.json(dados);
 });
+app.get('/home',(req,res)=>{
+
+  res.redirect('/')
+})
 
 app.get('/map', (req,res)=>{
   res.render('map', dados);
 })
 
 // rotas dos arquivos e do .json da pagina//
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
-});
+
 
 app.get('/style.css', (req, res) => {
   res.sendFile(__dirname + '/style.css');

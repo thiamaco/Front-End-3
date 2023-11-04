@@ -2,13 +2,11 @@ var dados = [];
 var CoordAtualizados =[]
 const pontos = document.getElementById('pontos');
 var DiaAtual = new Date();
-// requsiçao para iniciar a pagina com os dados, se for utilizado um banco de dados aqui puxaria os dados do banco//
 fetch('/dados')
 .then(response => response.json())
 .then(data => {
   dados = data;
     for(var i=0; i<dados.length;i++){
-      //converte o Timestamp para um objeto date
       dados[i].dob.date = new Date(dados[i].dob.date);
       dados[i].dob.date.dia = dados[i].dob.date.getDate();
       dados[i].dob.date.ano = dados[i].dob.date.getFullYear();
@@ -20,7 +18,6 @@ fetch('/dados')
         }else{
         dados[i].dob.aniversario=(dias+365)+1;
         }
-      
     }
     atualizar();
 })
