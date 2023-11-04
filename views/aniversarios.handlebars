@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thiamaco RH</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/7604/7604036.png">
+  <script>
+    (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })({
+      key: "AIzaSyDpnvRVNX-JC6yLKwz475kdp_f_fkVFonU",
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <ul class="menu-header">
+      <li class="lista"><a class="add-user" href="javascript:void(0)">Adicionar Usuarios</a></li>
+      <li class="lista"><a class='lista-aniver' href="aniversarios">Lista de Aniversarios</a></li>
+      <li class="lista"><a class="street" href="map">Localização</a></li>
+      <li class="lista"><a class='lista-contatos' href="contatos">Contato</a></li>
+      <li class="lista"><a class="tabela_home" href="home">Home</a></li>
+    </ul>
+  </header>
+  <div class="grid-container">
+    <aside class="left"></aside>
+    <main class="center">
+      
+      <div id="message-add">
+        <span>Um novo Usuario foi adicionado!</span>
+      </div>
+    <table class="table-aniver">
+        <thead>
+          <tr>
+            <th class="name">Nome</th>
+            <th>Dia</th>
+            <th>Mês</th>
+            <th>Ano</th>
+            <th>Dias Faltantes</th>
+          </tr>
+        </thead>
+        <tbody id="body-aniver">
+        </tbody>
+      </table>
+      
+    </main>
+    <aside class="right"></aside>
+  </div>
+  </div>
+  <footer>
+    <p>&copy; 2023 Thiamaco. Todos os Direitos Reservados.</p>
+</footer>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="script.js"></script>
+
+</body>
+
+</html>
