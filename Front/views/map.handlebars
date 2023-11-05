@@ -20,22 +20,18 @@
           {{#each dados}}
            <option value="{{@index}}">
           {{#each results}}
-          
          {{name.first}} {{name.last}}</option>
-          
           {{/each}}
           {{/each}}
         </select>
       </div>
-
     </main>
     <aside class="right"></aside>
   </div>
   </div>
-
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="script.js"></script>
-  <script>
+  <script >
     // renderiza um mapa com foco incial em porto alegre
     let map;
     async function initMap() {
@@ -54,6 +50,7 @@
     });
 
     $(document).ready(function() {
+       ajustarcoord(dados) 
   if (window.location.href.indexOf("map") !== -1) {
     ajustarcoord(dados)    
   }
@@ -101,11 +98,18 @@
     
     
     //evento quando há alguma alteraçao no select para alterar o foco no mapa
+      
     $("#pontos").on("change", function () {
       var opcaoSelecionada = $(this).find("option:selected").val();
        const newLatLng = new google.maps.LatLng(dados[opcaoSelecionada].results[0].location.coordinates.lat, dados[opcaoSelecionada].results[0].location.coordinates.lng);
       map.panTo(newLatLng);
       map.setZoom(12);
     });
+  </script>
+  <script defer>
+    setTimeout(()=>{
+ ajustarcoord(dados);
+    },1000)
+   
   </script>
 </body>
