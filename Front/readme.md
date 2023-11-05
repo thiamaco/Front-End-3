@@ -1,5 +1,9 @@
-para utilizaçao da aplicaçao é necessario configurar uma chave key do google maps 
-para utilizar os serviços de geoolicazaçao ofericidos nessa aplicaçao.
+Versão com handlebars
 
-1 - obter a key
-2- substituir no index.html em "suakeyaqui"
+para rodar é necessario rodar a pasta back e a pasta front
+
+1 - back > json-server data.json
+2 - front > node app.js
+3 - obter a key do google maps e substituir no arquivo map.handlebars na campo "suakey"
+
+
