@@ -34,6 +34,42 @@ app.get('/', async (req, res) => {
     })
 })
 
+app.post('/search', async (req, res) => {
+  const dados = req.body;
+  var retorno;
+  fetch('http://localhost:3000/results')
+    .then(response => response.json())
+    .then(data => {
+      //console.log(data)
+      if(dados.value!=''){
+        if(dados.type == 'gender'){
+          retorno = data.filter(item => item.results[0].gender == dados.value);  
+          res.render('search', { dados:  retorno, layout: false });
+        }else if(dados.type == 'age'){
+          retorno = data.filter(item => item.results[0].dob.age == dados.value);
+          res.render('search', { dados:  retorno, layout: false });
+      }else if(dados.type == 'city'){
+          retorno = data.filter(item => item.results[0].location.city == dados.value);
+          res.render('search', { dados:  retorno, layout: false });
+      }else if(dados.type == 'state'){
+        retorno = data.filter(item => item.results[0].location.state == dados.value);
+        res.render('search', { dados:  retorno, layout: false });
+      }else if(dados.type == 'cpf'){
+        retorno = data.filter(item => item.results[0].id.value == dados.value);
+        res.render('search', { dados:  retorno, layout: false });
+      }
+    }else{
+        res.render('search', { dados: data, layout: false });
+      }
+      console.log(dados.value);
+      
+    })
+    
+    .catch(error => {
+      console.error('Erro ao buscar os dados:', error);
+    })
+})
+
 app.get('/add-dados', async (req, res) => {
   try {
     const response = await axios.get('https://randomuser.me/api/?results=1&nat=BR');

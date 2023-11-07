@@ -9,8 +9,16 @@
       <div class="search">
         <h3 style="text-align: center;">Tabela de Dados</h3>
         <div>
+          <select name="" id="searchselect" style="margin-right: 20px; border-radius:10px; padding:5px">
+            <option value="gender">Gender</option>
+             <option value="age">Age</option>
+             <option value="city">City</option>
+             <option value="state">State</option>
+             <option value="cpf">CPF</option>
+          </select>
           <input type="text" name="search" class="pesquisar" placeholder="search...">
           <input type="submit" id="btnsearch" value="Pesquisar">
+          <input type="hidden" id="tipo" value="">
         </div>
       </div>
       <table class="table">
